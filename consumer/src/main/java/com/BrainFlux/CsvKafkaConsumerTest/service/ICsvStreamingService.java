@@ -1,7 +1,9 @@
 package com.BrainFlux.CsvKafkaConsumerTest.service;
 
+import com.BrainFlux.CsvKafkaConsumerTest.common.page.PageResult;
 import com.BrainFlux.CsvKafkaConsumerTest.domain.CsvStreaming;
-import com.BrainFlux.CsvKafkaConsumerTest.domain.base.BaseQueryCriteria;
+import com.BrainFlux.CsvKafkaConsumerTest.domain.criteria.CsvStreamingQueryCriteria;
+import com.BrainFlux.CsvKafkaConsumerTest.domain.vo.CsvStreamingVo;
 import com.BrainFlux.CsvKafkaConsumerTest.service.Base.BaseService;
 
 
@@ -14,5 +16,7 @@ import com.BrainFlux.CsvKafkaConsumerTest.service.Base.BaseService;
  * @since 2022-04-27
  */
 public interface ICsvStreamingService extends BaseService<CsvStreaming> {
-    CsvStreaming selectByTime(BaseQueryCriteria baseQueryCriteria);
+    CsvStreaming insert(CsvStreaming csvStreaming);
+    PageResult<CsvStreamingVo> checkAllCsvStreamingByQuery(CsvStreamingQueryCriteria csvStreamingQueryCriteria);
+
 }

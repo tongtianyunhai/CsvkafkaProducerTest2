@@ -1,23 +1,16 @@
-package com.BrainFlux.CsvKafkaConsumerTest.domain;
+package com.BrainFlux.CsvKafkaConsumerTest.domain.vo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
 
 /**
  * @Author：geliyang
  * @Version：1.0
- * @Date：2022/4/26-15:05
+ * @Date：2022/6/13-16:19
  * @Since:jdk1.8
  * @Description:TODO
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class CsvStreaming  implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class CsvStreamingVo {
     private String eid;
 
     private String usedTime;
@@ -46,11 +39,4 @@ public class CsvStreaming  implements Serializable {
 
     private String scheduleTask;
 
-    private String additionOne;
-
-    private String additionTwo;
-
-    private String additionThree;
-
-    private String additionFour;
 }

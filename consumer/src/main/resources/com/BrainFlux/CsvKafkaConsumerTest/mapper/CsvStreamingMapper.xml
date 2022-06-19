@@ -1,10 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.BrainFlux.CsvKafkaConsumerTest.mapper.CsvStreamingMapper">
+
+    <resultMap id="BaseResultMap" type="com.BrainFlux.CsvKafkaConsumerTest.domain.CsvStreaming">
+        <!--@Table csv_streaming-->
+        <result property="eid" column="eid" jdbcType="VARCHAR"/>
+        <result property="usedTime" column="used_time" jdbcType="VARCHAR"/>
+        <result property="success" column="success" jdbcType="INTEGER"/>
+        <result property="failure" column="failure" jdbcType="INTEGER"/>
+        <result property="amount" column="amount" jdbcType="INTEGER"/>
+        <result property="startTime" column="start_time" jdbcType="VARCHAR"/>
+        <result property="endTime" column="end_time" jdbcType="VARCHAR"/>
+        <result property="threadNumber" column="thread_number" jdbcType="INTEGER"/>
+        <result property="sleepTime" column="sleep_time" jdbcType="INTEGER"/>
+        <result property="consumergroupNumber" column="consumergroup_number" jdbcType="INTEGER"/>
+        <result property="producerAddress" column="producer_address" jdbcType="VARCHAR"/>
+        <result property="consumerAddress" column="consumer_address" jdbcType="VARCHAR"/>
+        <result property="topicName" column="topic_name" jdbcType="VARCHAR"/>
+        <result property="scheduleTask" column="schedule_task" jdbcType="INTEGER"/>
+        <result property="additionOne" column="addition_one" jdbcType="VARCHAR"/>
+        <result property="additionTwo" column="addition_two" jdbcType="VARCHAR"/>
+        <result property="additionThree" column="addition_three" jdbcType="VARCHAR"/>
+        <result property="additionFour" column="addition_four" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
     <select id="selectByTime" resultType="com.BrainFlux.CsvKafkaConsumerTest.domain.CsvStreaming">
         select * from csv_streaming
         <where>
             time  >=#{startTime} and time &lt;=#{endTime}
         </where>
+    </select>
+
+    <insert id="insert" keyProperty="brandId;endTime" useGeneratedKeys="true">
+        insert into umpc.csv_streaming(eid, used_time, success, failure, amount, start_time, end_time, thread_number, consumergroup_number,producer_address,consumer_address,topic_name,addition_one,addition_two,addition_three,addition_four,sleep_time,schedule_task)
+        values (#{eid}, #{usedTime}, #{success}, #{failure}, #{amount}, #{startTime}, #{endTime}, #{threadNumber}, #{consumergroupNumber}, #{producerAddress}, #{consumerAddress}, #{topicName}, #{additionOne}, #{additionTwo}, #{additionThree}, #{additionFour},#{sleepTime},#{scheduleTask})
+    </insert>
+
+    <select id="checkCsvStreamingByQuery" resultType="com.BrainFlux.CsvKafkaConsumerTest.domain.vo.CsvStreamingVo">
+        select * from csv_streaming
+        <where>
+            1=1
+            <if test="startTime != null and endTime != null">
+                and start_time >=#{startTime}and end_time &lt;=#{endTime}
+            </if>
+            <if test="scheduleTask != null and scheduleTask !=  '' ">
+                and  schedule_task =#{scheduleTask}
+            </if>
+            <if test="scheduleTask != null and scheduleTask !=  '' ">
+                and  schedule_task =#{scheduleTask}
+            </if>
+            <if test="producerAddress != null and producerAddress !=  '' ">
+                and  producer_address =#{producerAddress}
+            </if>
+            <if test="consumerAddress != null and consumerAddress !=  '' ">
+                and  consumer_address =#{consumerAddress}
+            </if>
+            <if test="topicName != null and topicName !=  '' ">
+                and  topic_name =#{topicName}
+            </if>
+        </where>
+        order by start_time desc
     </select>
 </mapper>
