@@ -1,13 +1,12 @@
 server:
-  port: 9000
-
+  port: 8040
 
 topic: import-CSV-events
 partitions: 3
 replicas: 3
 SUCCESSFILES: ./testSuccess
 FAILEDFILES: ./testFalilure
-timeoutSleep: 30000
+timeoutSleep: 60000
 ---
 spring:
   profiles:
@@ -32,9 +31,16 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       group-id: csv-import-listener-group
       enable-auto-commit: true
-    admin:
       properties:
-        bootstrap.servers: localhost:9092
+        request:
+          timeout:
+            ms: 600000
+        session:
+          timeout:
+            ms: 600000
+#    admin:
+#      properties:
+#        bootstrap-servers: localhost:9092
 
 ---
 spring:
