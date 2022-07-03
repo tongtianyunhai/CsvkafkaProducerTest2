@@ -13,8 +13,8 @@ spring:
     active: localTest
 ---
 spring:
-  profiles: local
   kafka:
+    bootstrap-servers: 10.215.48.194:9092
     template:
       default-topic: import-CSV-events
 #    producer:
@@ -26,7 +26,6 @@ spring:
 #        retries: 10
 #        retry.backoff.ms: 1000
     consumer:
-      bootstrap-servers: localhost:9092
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       group-id: csv-import-listener-group
